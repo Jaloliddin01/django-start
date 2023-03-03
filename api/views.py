@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import json
 from django.http import HttpRequest, HttpResponse, JsonResponse
 
 def home(request: HttpRequest):
@@ -11,5 +12,14 @@ def home(request: HttpRequest):
     return JsonResponse(data)
 
 def get_sum(request: HttpRequest):
-    data = request.body
-    print(data)
+
+    if request.method == "GET":
+        return HttpResponse("Ok")
+
+    if request.method == "POST":
+        data = json.loads(request.body.decode())
+        print(data)
+        result = {
+            "result": sum(map(int, data.values()))
+        }        
+        return JsonResponse(result)
