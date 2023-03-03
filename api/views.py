@@ -9,3 +9,7 @@ def home(request: HttpRequest):
     }
 
     return JsonResponse(data)
+
+def get_sum(request: HttpRequest):
+    data = request.body
+    print(data)
